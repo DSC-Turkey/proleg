@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:models/map/map.dart';
+import 'package:models/profile_page/profile_page.dart';
+import 'package:models/profile_page/profile_page.dart';
+
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -12,8 +15,8 @@ class Home extends StatefulWidget {
 final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
     MyMaps(),
-    PlaceholderWidget(Colors.green),
-    PlaceholderWidget(Colors.amber)
+    PlaceholderWidget(Colors.amber),
+    ProfilePage(),
   ];
 class _HomeState extends State<Home> {
   int currentIndex;
