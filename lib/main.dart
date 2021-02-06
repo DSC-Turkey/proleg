@@ -3,6 +3,8 @@ import 'login_page/login01.dart';
 //import 'login_page/login02.dart';
 import 'bottom_navigation/bottom_navigation.dart';
 import 'map/map.dart';
+
+GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey<NavigatorState>();
 void main() {
   runApp(MyApp());
 }
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyMaps(),
+      navigatorKey: mainNavigatorKey,
+      home: Home(),
     );
   }
 }
