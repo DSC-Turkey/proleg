@@ -1,4 +1,11 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:models/map/map.dart';
+
+
+//unesco protected areas 
 
 Marker gobekliTepe = Marker(
   markerId: MarkerId('gobekliTepe'),
@@ -211,7 +218,158 @@ Marker zeyrekKorumaAlani = Marker(
   )
 );
 
+//national parks
 
+Marker agriDagi = Marker(
+  markerId: MarkerId('agriDagi'),
+  position: LatLng(39.70443, 44.30141),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Ağrı Dağı",
+    onTap: (){
+    }              
+  )
+);
+Marker altinbesik = Marker(
+  markerId: MarkerId('altinbesik'),
+  position: LatLng(37.037419, 31.633331),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Altınbeşik",
+    onTap: (){
+    }              
+  )
+);
+Marker altindere = Marker(
+  markerId: MarkerId('altindere'),
+  position: LatLng(40.708783, 39.648661),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Altındere",
+    onTap: (){
+    }              
+  )
+);
+Marker baskomutanTarihi = Marker(
+  markerId: MarkerId('baskomutanTarihi'),
+  position: LatLng(38.655278, 30.468611),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Başkomutan Tarihî Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker beydaglariSahil = Marker(
+  markerId: MarkerId('beydaglariSahil'),
+  position: LatLng(36.402778, 30.474444),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Beydağları Sahil Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker beysehirGolu = Marker(
+  markerId: MarkerId('beysehirGolu'),
+  position: LatLng(37.695867, 31.713978),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Beyşehir Gölü Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker botanCayi = Marker(
+  markerId: MarkerId('botanCayi'),
+  position: LatLng(37.7266, 41.7764),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Botan Çayı",
+    onTap: (){
+    }              
+  )
+);
+Marker dilekYarimadasi = Marker(
+  markerId: MarkerId('dilekYarimadasi'),
+  position: LatLng(37.668928, 27.161756),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Dilek Yarımadası",
+    onTap: (){
+    }              
+  )
+);
+Marker dalaGolu  = Marker(
+  markerId: MarkerId('dalaGolu'),
+  position: LatLng(40.767486, 26.186373),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Gala Gölü Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker gullukDagi   = Marker(
+  markerId: MarkerId('gullukDagi'),
+  position: LatLng(37.016533, 30.513528),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Güllük Dağı Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker hatilaVadisi   = Marker(
+  markerId: MarkerId('hatilaVadisi'),
+  position: LatLng(41.189811, 41.743109),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Hatila Vadisi Millî Parkı",
+    onTap: (){
+    }              
+  )
+);
+Marker honazDagi  = Marker(
+  markerId: MarkerId('honazDagi'),
+  position: LatLng(37.758056, 29.270833),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Honaz Dağı",
+    onTap: (){
+    }              
+  )
+);
+Marker yedigollerNational = Marker(
+  markerId: MarkerId('yedigollerNational'),
+  position: LatLng(40.943485, 31.745502),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Yedigöller National Park",
+    onTap: (){
+    }              
+  )
+);
+Marker soguksuNational   = Marker(
+  markerId: MarkerId('soguksuNational'),
+  position: LatLng(40.454131, 32.622317),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Soğuksu National Park",
+    onTap: (){
+    }              
+  )
+);
+Marker saldaGolu   = Marker(
+  markerId: MarkerId('saldaGolu '),
+  position: LatLng(37.33, 29.41),
+  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+  infoWindow: InfoWindow(
+    title: "Salda Gölü",
+    onTap: (){
+    }              
+  )
+);
 
 
 
