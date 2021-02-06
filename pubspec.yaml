@@ -26,6 +26,9 @@ dependencies:
   flutter_signin_button: ^1.1.0
   bubble_bottom_bar: ^1.2.0
   google_maps_flutter: ^1.2.0
+  firebase_auth: ^0.20.0+1
+  cloud_firestore: ^0.16.0
+  firebase_storage: ^7.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

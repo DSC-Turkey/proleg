@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "116421840416",
+    "project_id": "flutterhack01",
+    "storage_bucket": "flutterhack01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116421840416:android:f125435981a65df4ba7645",
+        "android_client_info": {
+          "package_name": "com.example.models"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116421840416-emed6j97u2t763igdgrmilqrhedvgm6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhcmhpSeOTdBWVNNpIV-zsvWJABK8k3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116421840416-emed6j97u2t763igdgrmilqrhedvgm6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
