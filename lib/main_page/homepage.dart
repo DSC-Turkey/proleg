@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 final List<Widget> _children = [
     HomeBody(),
     MyMaps(),
-    PlaceholderWidget(Colors.amber),
     ProfilePage(),
   ];
   Color PrimaryColor =  Color(0xff109618);
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: currentIndex != 3 ?  AppBar(
+        appBar: currentIndex != 2 ?  AppBar(
           backgroundColor: Colors.white,
           title: Text("Proleg",style: TextStyle(fontWeight: FontWeight.bold,color:Color(0xff005B44),fontSize: 30),),
           actions: [
@@ -69,7 +68,6 @@ class _HomePageState extends State<HomePage> {
               items: <BubbleBottomBarItem>[
                   BubbleBottomBarItem(backgroundColor: Colors.red, icon: Icon(Icons.home, color: Colors.black,), activeIcon: Icon(Icons.home, color: Colors.red,), title: Text("Ana Sayfa")),
                   BubbleBottomBarItem(backgroundColor: Colors.deepPurple, icon: Icon(Icons.map_outlined, color: Colors.black,), activeIcon: Icon(Icons.map_outlined, color: Colors.deepPurple,), title: Text("Harita")),
-                  BubbleBottomBarItem(backgroundColor: Colors.red, icon: Icon(Icons.notifications_none, color: Colors.black,), activeIcon: Icon(Icons.notifications_none, color: Colors.red,), title: Text("Şikayetler")),
                   BubbleBottomBarItem(backgroundColor: Colors.green, icon: Icon(Icons.person, color: Colors.black,), activeIcon: Icon(Icons.person, color: Colors.green,), title: Text("Profil"))
               ],
             ),

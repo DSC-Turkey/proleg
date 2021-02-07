@@ -26,10 +26,12 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
+                fontFamily: 'Pragmatica',
                 primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
               navigatorKey: mainNavigatorKey,
+              
               home: LoginUser(),
             );
           },
