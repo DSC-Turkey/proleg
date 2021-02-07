@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:models/config/sizeConfig.dart';
-
+import 'package:models/post_detailed/one_page_post.dart';
+import 'package:models/profile_page/profile_data.dart';
+import 'package:models/post_detailed/one_page_issue.dart';
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key, this.title}) : super(key: key);
 
@@ -28,15 +30,15 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF8F8FA),
+      backgroundColor: Color(0x4E8397),
       body: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
           Container(
-            color: Colors.blue[600],
+            color: Color(0xff005B44),
             height: 40 * SizeConfig.heightMultiplier,
             child: Padding(
-              padding:  EdgeInsets.only(left: 30.0, right: 30.0, top: 5 * SizeConfig.heightMultiplier),
+              padding:  EdgeInsets.only(left: 30.0, right: 30.0, top: 8 * SizeConfig.heightMultiplier),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -208,11 +210,16 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisCount: 3 ,
           crossAxisSpacing: 8,
           mainAxisSpacing: 4,
-          children: List.generate(6,(index){
+          children: List.generate(4,(index){
             return Container(
               child: GestureDetector(
-                child: Image.network(profile_photos[index],fit: BoxFit.fill,),
-                onTap: (){},
+                child: Image.network(profile_photos[index].image,fit: BoxFit.fill,),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DetailedPost(profile_photos[index].image,profile_photos[index].address,profile_photos[index].like,profile_photos[index].date,profile_photos[index].description,index)),
+                  );
+                },
               ),
             );
           }),
@@ -231,11 +238,14 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisCount: 3 ,
           crossAxisSpacing: 8,
           mainAxisSpacing: 4,
-          children: List.generate(6,(index){
+          children: List.generate(3,(index){
             return Container(
                 child: GestureDetector(
-                  child: Image.network(profile_issues[index],fit: BoxFit.fill,),
-                  onTap:(){},
+                  child: Image.network(profile_issues[index].image,fit: BoxFit.fill,),
+                  onTap:(){ 
+                    Navigator.push( 
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailedIssue(profile_issues[index].image,profile_issues[index].address,profile_issues[index].like,profile_issues[index].date,profile_issues[index].description,index,profile_issues[index].isColsed)));},                
               ),
             );
           }),
@@ -244,20 +254,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-List<String> profile_photos = [
-  "https://expertphotography.com/wp-content/uploads/2020/05/Nature-Photographer-Marco-Grassi.png",
-  "https://expertphotography.com/wp-content/uploads/2020/05/Nature-Photographers-1.png",
-  "https://expertphotography.com/wp-content/uploads/2020/05/outdoor-photographer-7-joshuacripps.jpg",
-  "https://www.dogadernegi.org/wp-content/uploads/2018/03/ana-foto-salda-golu-cuneyt-oguztuzun.jpg",
-  "https://i.dunya.com/2/1280/720/storage/old/files/2020/7/10/474885/474885.jpg.webp",
-  "https://img.theculturetrip.com/768x432/wp-content/uploads/2018/02/1024px-aladaglar_1.jpg"
-]; 
-List<String> profile_issues = [
-  "https://pbs.twimg.com/media/ES_r-ayXkAANzlo.jpg",
-  "https://ar-files.s3.eu-central-1.amazonaws.com/s3fs-public/117639267_897440000764185_8763733386426492884_n-1-718x400.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/A_walk_on_a_dirty_beach.JPG/1200px-A_walk_on_a_dirty_beach.JPG",
-  "https://ichef.bbci.co.uk/news/640/cpsprodpb/9560/production/_108204283_dron2.jpg",
-  "https://i.dunya.com/2/1280/720/storage/old/files/2020/7/10/474885/474885.jpg.webp",
-  "https://www.izgazete.net/images/haberler/2018/03/bir_kulturel_miras_daha_yok_oluyor_h23490_ad267.jpg"
-]; 
-  
