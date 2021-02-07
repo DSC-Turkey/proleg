@@ -37,6 +37,7 @@ dependencies:
   rflutter_alert: ^1.1.0
   the_validator: ^1.0.4
   simple_animations: ^2.5.0
+  image_picker: ^0.6.7+22
 
 
   # The following adds the Cupertino Icons font to your application.
