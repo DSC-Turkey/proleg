@@ -1,10 +1,14 @@
 import 'dart:ui';
 import 'dart:math';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:models/animation/FadeAnimation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io' show Platform;
+import 'package:models/main_page/homepage.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-//Scrollable bottomsheet sign_up form
+
 
 class LoginPage extends StatefulWidget{
   
@@ -18,7 +22,7 @@ class _LoginPageState extends State<LoginPage>  with SingleTickerProviderStateMi
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Color.fromRGBO(170, 80, 80, 1),
+      backgroundColor: Color(0xfff7fff4),
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -27,25 +31,9 @@ class _LoginPageState extends State<LoginPage>  with SingleTickerProviderStateMi
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height:40.0),
-                    CarouselSlider(
-                      options: CarouselOptions(height: 200.0),
-                      items: ['assets/config.json','assets/config.json','assets/config.json'].map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width-180,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                color: Colors.amber
-                              ),
-                              child: Text('text $i', style: TextStyle(fontSize: 16.0),)
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    FormField()
+                    SizedBox(height:40),
+                    AnimatedLogo(),
+                    FadeAnimation(2.8, FormField()),
                   ],
                 ),
               ),
@@ -98,7 +86,9 @@ class _AnimatedLogoState extends State<AnimatedLogo> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Image.network('https://images-na.ssl-images-amazon.com/images/I/515cl%2B02yjL.png',width: MediaQuery.of(context).size.width/2.3);
+    return FadeAnimation(0.3,Image.asset('assets/image/logo.jpg',width: MediaQuery.of(context).size.width/1.3),
+
+    );
   }
 }
 //login form
@@ -111,6 +101,7 @@ class FormField extends StatefulWidget {
 
 class _FormFieldState extends State<FormField> {
   bool passwordVisibility = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -125,7 +116,7 @@ class _FormFieldState extends State<FormField> {
     return Container(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top:60.0,left: 30.0),
+        padding: EdgeInsets.only(top:30.0,left: 30.0),
         alignment: Alignment.topLeft,
         child: Form(
             key: _formKey,
@@ -202,15 +193,17 @@ class _FormFieldState extends State<FormField> {
                 )
               ), 
               Container(
+                color: Color(0xff983353),
                 margin: EdgeInsets.only(top:30,bottom:16,right: 40),
                 width: MediaQuery.of(context).size.width/1.5,
                 child: FlatButton(
-                  child: Text('Login',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                  color: Colors.white,
+
+                  child: Text('Login',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: Colors.white),),
+                  color: Color(0xff983353),
                   textColor: Colors.pink,
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
-                      
+                      _signInWithEmailAndPassword();
                     }
                   },
                 ),
@@ -237,8 +230,9 @@ class _FormFieldState extends State<FormField> {
                 width: MediaQuery.of(context).size.width/1.5,
                 child: SignInButton(
                   Buttons.Google,
-                  onPressed: () {
-                    
+                  text: "Sign up with Google",
+                  onPressed: () async {
+                    _signInWithGoogle();
                   },
                 ),
               ),
@@ -247,6 +241,59 @@ class _FormFieldState extends State<FormField> {
         )
       )
     );
+  }
+  void _signInWithEmailAndPassword() async{
+    try{
+      final User user = (await _auth.signInWithEmailAndPassword(
+        email: _emailController.text, 
+        password: _passwordController.text
+        ) 
+      ).user;
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("${user.email} ile giriş yapıldı.")));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>HomePage()));
+    }on FirebaseAuthException catch(e){
+      print(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("${e.message}"),));
+      
+    }catch(e){
+      print(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Email ve Şifre ile giriş yaparken bir sorun oluştu"),));
+    }
+  }
+  void _signInWithGoogle() async{
+    try{
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final UserCredential authResult = await _auth.signInWithCredential(credential);
+      final User user = authResult.user;
+      if (user != null) {
+          assert(!user.isAnonymous);
+          assert(await user.getIdToken() != null);
+
+          final User currentUser = _auth.currentUser;
+          assert(user.uid == currentUser.uid);
+
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content:Text("${user.displayName}, Google ile giriş yaptı"),
+          ),);
+      }
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(builder: (context)=>HomePage())
+      );
+    }on FirebaseAuthException catch (e){
+      print(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("${e.message}"),));
+    }catch (e){
+      print(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(content:Text("Google ile giriş yaparken bir hata oluştu.")));
+    }
   }
 }
 //bottomsheet
@@ -295,12 +342,18 @@ class _BottomSheetState extends State<BottomSheet> with SingleTickerProviderStat
             onTap: _toggle,
             onVerticalDragUpdate: _handleDragUpdate,
             onVerticalDragEnd: _handleDragEnd,
+            
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32),
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-              ),
+                color: Color(0xfff7fff4),
+                border: Border.all(
+                  color: Color(0xffd03855),
+                  width: 3,
+                  )
+                ),
               child: Stack(
                 children: <Widget>[
                   Header(
@@ -355,12 +408,14 @@ class Header extends StatelessWidget {
       top: topMargin,
       left: 0,
       child: Padding(
-        padding: const EdgeInsets.only(right:20.0,left:40.0),//do not forget to change this to centered fixed!! it was just for iphone 11 
+        padding: EdgeInsets.all(0.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [  
             Text(
               'Henüz kayıt olmadınız mı?',
               style: TextStyle(
+                
                 fontSize: fontSize,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -406,6 +461,7 @@ class FormUpField extends StatefulWidget {
 }
 
 class _FormUpFieldState extends State<FormUpField> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _signEmail = TextEditingController();
 
   final TextEditingController _signPassword = TextEditingController();
@@ -535,7 +591,9 @@ class _FormUpFieldState extends State<FormUpField> {
                     color: Colors.blue,
                     textColor: Colors.white,
                     onPressed: () async {
-                      
+                      if(_formKey.currentState.validate()){
+                        _register();
+                      }
                     },
                 ),
               ),
@@ -554,5 +612,30 @@ class _FormUpFieldState extends State<FormUpField> {
     _signEmail.dispose();
     _signPassword.dispose();
     super.dispose();
+  }
+  void _register() async {
+    try{
+      final User user = (await _auth.createUserWithEmailAndPassword(
+        email: _signEmail.text,
+        password: _signPassword.text,
+      )).user;
+      if(user != null ){
+        setState(() {
+          _success = true;
+          _message = "Kayıt başarılı ${user.email}";
+        });
+      }else{
+        setState(() {
+          _success = false;
+          _message = "Kayıt başarısız.";
+        });
+      }
+    }catch(e){
+      print(e.toString());
+      setState(() {
+        _success = false;
+        _message = "Kyıt başarısız. \n\n$e";
+      });
+    }
   }
 }
