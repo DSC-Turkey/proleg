@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 //Scrollable bottomsheet sign_up form
 
 class LoginPage extends StatefulWidget{
@@ -27,8 +27,24 @@ class _LoginPageState extends State<LoginPage>  with SingleTickerProviderStateMi
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height:40),
-                    AnimatedLogo(),
+                    SizedBox(height:40.0),
+                    CarouselSlider(
+                      options: CarouselOptions(height: 200.0),
+                      items: ['assets/config.json','assets/config.json','assets/config.json'].map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width-180,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                color: Colors.amber
+                              ),
+                              child: Text('text $i', style: TextStyle(fontSize: 16.0),)
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
                     FormField()
                   ],
                 ),

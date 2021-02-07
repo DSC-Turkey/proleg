@@ -35,19 +35,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: currentIndex != 3 ?  AppBar(
           backgroundColor: Colors.white,
-          title: Text("Nature",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.green,fontSize: 30),),
+          title: Text("Nature",style: TextStyle(fontWeight: FontWeight.bold,color:Color(0xff005B44),fontSize: 30),),
           actions: [
             Padding(
               padding: EdgeInsets.all(6.0),
               child: IconButton(
-                icon: Icon(Icons.search,color:Colors.green,size:30),
+                icon: Icon(Icons.search,color:Color(0xff005B44),size:30),
                 onPressed: (){},
               ),
             )
           ],
-        ),
+        ) : null,
         body: _children[currentIndex],
         floatingActionButton: FloatingActionButton(
           onPressed: (){},

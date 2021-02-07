@@ -1,21 +1,21 @@
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:models/main_page/addfeed.dart';
 import 'package:models/main_page/homelist.dart';
 import 'package:models/main_page/homenature.dart';
 import 'package:models/main_page/homereport.dart';
 import 'package:models/map/map.dart';
+import 'package:models/profile_page/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
+    HomeBody(),
     MyMaps(),
-    PlaceholderWidget(Colors.green),
-    PlaceholderWidget(Colors.amber)
+    PlaceholderWidget(Colors.amber),
+    ProfilePage(),
   ];
   Color PrimaryColor =  Color(0xff109618);
 
@@ -36,83 +36,24 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("PROLEG",style: 
-        TextStyle(fontWeight: FontWeight.bold,color:Colors.green,
-        fontFamily:  "Signatra",
-        fontSize: 30.0),),
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(6.0),
-            child: IconButton(
-              icon: Icon(Icons.search,color:Colors.green,size:30),
-              onPressed: (){},
-            ),
-          )
-        ],
-      /*   bottom: TabBar(
-              isScrollable: true,
-              indicatorColor: Colors.white,
-              indicatorWeight: 6.0, 
-               onTap: (index){
-                 setState(() {
-                  switch (index) {
-                    case 0:
-                      PrimaryColor= Color(0xffff5722);
-                      break;
-                      case 1:
-                      PrimaryColor= Color(0xff3f51b5);
-                      break;
-                      case 2:
-                      PrimaryColor= Color(0xffe91e63);
-                      break;
-                      case 3:
-                      PrimaryColor= Color(0xff9c27b0);
-                      break;
-                      case 4:
-                      PrimaryColor= Color(0xff2196f3);
-                      break;
-                    default:
-                  }
-            });
-              },
-              tabs: <Widget>[
-                Tab(
-                  child: Container(
-                    child: Text(
-                      'NATURE',
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Container(
-                    child: Text(
-                      'REPORT',
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                ),
-                
-              ],
-            ),*/
-          ),
-     /*   body: TabBarView(
-            children: <Widget>[
-              HomeNature(),//ff5722
-              HomeReport(),//3f51b5
-            ],
-          ),
-      */
-        body: new HomeBody(),
-           floatingActionButton: FloatingActionButton(
-        onPressed: (){
-           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => MyAddPage()));
-        },
+        appBar: currentIndex != 3 ?  AppBar(
+          backgroundColor: Colors.white,
+          title: Text("Proleg",style: TextStyle(fontWeight: FontWeight.bold,color:Color(0xff005B44),fontSize: 30),),
+          actions: [
+            Padding(
+              padding: EdgeInsets.all(6.0),
+              child: IconButton(
+                icon: Icon(Icons.search,color:Color(0xff005B44),size:30),
+                onPressed: (){},
+              ),
+            )
+          ],
+        ) : null,
+        body: _children[currentIndex],
+        floatingActionButton: FloatingActionButton(
+        onPressed: (){},
         child: Icon(Icons.add),
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xff005B44),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BubbleBottomBar(
