@@ -1,6 +1,6 @@
 # proleg
 
-[![Watch the video]](https://youtu.be/xd1ozttU920)
+![NewsApp IOS Demo](promo/promo.gif)
 
 ## Getting Started
 
