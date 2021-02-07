@@ -55,7 +55,7 @@ class Logo extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(top:20),
         alignment: Alignment.center,
-        child: Image.network('https://images-na.ssl-images-amazon.com/images/I/515cl%2B02yjL.png',width: MediaQuery.of(context).size.width/1.7,height: MediaQuery.of(context).size.height/5)
+        child : FadeAnimation(0.3,Image.asset('assets/image/logo.jpg',width: MediaQuery.of(context).size.width/1.3)),
       )
     );
   }
@@ -69,7 +69,8 @@ class LogoIcon extends StatelessWidget {
     return Container(
       child: Container(
         alignment: Alignment.center,
-        child: Image.network('https://images-na.ssl-images-amazon.com/images/I/515cl%2B02yjL.png',width: 70,height: 70)
+        child: FadeAnimation(0.3,Image.asset('assets/image/logo.jpg',width: MediaQuery.of(context).size.width/1.3),
+        )
       )
     );
   }
@@ -130,13 +131,14 @@ class _FormFieldState extends State<FormField> {
                       width: MediaQuery.of(context).size.width/1.4,
                       child: TextFormField(//email
                         controller: _emailController,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         decoration: new InputDecoration(
                           labelText: 'Email',
-                          labelStyle: TextStyle(color:Colors.white),
+                          labelStyle: TextStyle(color:Color(0xff086d5d),fontWeight: FontWeight.bold),
                           focusColor: Colors.white,
                           focusedBorder: new UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color:Colors.white,
+                              color:Color(0xff6eddfc),
                               width: 2.0
                             )
                           )
@@ -162,13 +164,14 @@ class _FormFieldState extends State<FormField> {
                       child: TextFormField(//password 
                         obscureText: passwordVisibility,
                         controller: _passwordController,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         decoration: new InputDecoration(
                           labelText: 'Password',
-                          labelStyle: TextStyle(color:Colors.white),
-                          focusColor: Colors.white,
+                          labelStyle: TextStyle(color:Color(0xff086d5d)),
+                          focusColor: Color(0xff6eddfc),
                           focusedBorder: new UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color:Colors.white,
+                              color:Color(0xff6eddfc),
                               width: 2.0
                             )
                           )
@@ -186,7 +189,7 @@ class _FormFieldState extends State<FormField> {
                       onTap: _passwordToggle,
                       child: Container(
                         padding: EdgeInsets.only(top:14),
-                        child: Icon(!passwordVisibility ? Icons.remove_red_eye : Icons.visibility_off ,size: 30,color: Colors.white),
+                        child: Icon(passwordVisibility ? Icons.remove_red_eye : Icons.visibility_off ,size: 30,color: Color(0xffc66d4f)),
                       )
                     )
                   ],
@@ -408,17 +411,16 @@ class Header extends StatelessWidget {
       top: topMargin,
       left: 0,
       child: Padding(
-        padding: EdgeInsets.all(0.0),
+        padding: EdgeInsets.only(left:50.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [  
             Text(
               'Henüz kayıt olmadınız mı?',
               style: TextStyle(
-                
                 fontSize: fontSize,
                 color: Colors.black,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
@@ -462,6 +464,7 @@ class FormUpField extends StatefulWidget {
 
 class _FormUpFieldState extends State<FormUpField> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool passwordVisibility = true;
   final TextEditingController _signEmail = TextEditingController();
 
   final TextEditingController _signPassword = TextEditingController();
@@ -470,10 +473,17 @@ class _FormUpFieldState extends State<FormUpField> {
   final TextEditingController _nameSurname = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  void _passwordToggle(){
+    setState((){
+      passwordVisibility = ! passwordVisibility;
+    });
+  }
   bool _success = true;
   String _message;
+  
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -573,10 +583,10 @@ class _FormUpFieldState extends State<FormUpField> {
                     ),
                     SizedBox(width:10),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){_passwordToggle();},
                       child: Container(
                         padding: EdgeInsets.only(top:14),
-                        child: Icon(!false ? Icons.remove_red_eye : Icons.visibility_off ,size: 30,color: Colors.blue),
+                        child: Icon(passwordVisibility ? Icons.remove_red_eye : Icons.visibility_off ,size: 30,color: Colors.blue),
                       )
                     )
                   ],
