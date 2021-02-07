@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
         appBar: currentIndex != 2 ?  AppBar(
           backgroundColor: Colors.white,
-          title: Text("Proleg",style: TextStyle(fontWeight: FontWeight.bold,color:Color(0xff005B44),fontSize: 30),),
+          title: Text("PROLEG",style: TextStyle(fontWeight: FontWeight.bold,color:Color(0xff005B44),fontSize: 30),),
           actions: [
             Padding(
               padding: EdgeInsets.all(6.0),
